@@ -1,0 +1,22 @@
+{
+    "namespace": "https://github.com/marktaiwan/",
+    "homepageURL": "https://github.com/marktaiwan/",
+    "match": [
+        "https://*.ponybooru.org/*",
+        "https://*.ponerpics.com/*",
+        "https://*.ponerpics.org/*",
+        "https://*.derpibooru.org/*",
+        "https://*.trixiebooru.org/*",
+        "https://*.twibooru.org/*"
+    ],
+    "grant": [
+        "GM_setValue",
+        "GM_getValue",
+        "GM_addValueChangeListener",
+        "GM_removeValueChangeListener"
+    ],
+    "require": [
+        "https://raw.githubusercontent.com/soufianesakhi/node-creation-observer-js/master/release/node-creation-observer-1.2.js"
+    ],
+    "noframes": true
+}
