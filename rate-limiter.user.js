@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Philomena Rate Limiter
-// @version     1.0.0
+// @version     1.0.1
 // @author      Marker
 // @license     MIT
 // @namespace   https://github.com/marktaiwan/
@@ -508,7 +508,7 @@
         uploadLimiter.initTicker(ticker(imagePostButton, prop));
         uploadLimiter.queueTask(() => {
           abort = false;
-          imagePostButton.disabled = false;
+          imagePostButton[prop] = imagePostButton.dataset.disableWith;
           form.submit();
         });
         window.addEventListener(

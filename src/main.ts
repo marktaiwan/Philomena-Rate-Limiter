@@ -28,7 +28,7 @@ function initUploadRateLimit(): void {
 
     uploadLimiter.queueTask(() => {
       abort = false;
-      imagePostButton.disabled = false;
+      imagePostButton[prop] = imagePostButton.dataset.disableWith;
       form.submit();
     });
 
