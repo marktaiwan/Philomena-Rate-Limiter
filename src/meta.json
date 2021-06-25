@@ -1,6 +1,7 @@
 {
     "namespace": "https://github.com/marktaiwan/",
-    "homepageURL": "https://github.com/marktaiwan/",
+    "homepageURL": "https://github.com/marktaiwan/Philomena-Rate-Limiter",
+    "supportURL": "https://github.com/marktaiwan/Philomena-Rate-Limiter/issues",
     "match": [
         "https://*.ponybooru.org/*",
         "https://*.ponerpics.com/*",
