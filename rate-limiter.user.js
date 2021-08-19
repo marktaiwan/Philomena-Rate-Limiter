@@ -1,17 +1,18 @@
 // ==UserScript==
 // @name        Philomena Rate Limiter
-// @version     1.0.1
+// @version     1.0.2
 // @author      Marker
 // @license     MIT
 // @namespace   https://github.com/marktaiwan/
-// @homepageURL https://github.com/marktaiwan/
+// @homepageURL https://github.com/marktaiwan/Philomena-Rate-Limiter
+// @supportURL  https://github.com/marktaiwan/Philomena-Rate-Limiter/issues
 // @match       https://*.ponybooru.org/*
 // @match       https://*.ponerpics.com/*
 // @match       https://*.ponerpics.org/*
 // @match       https://*.derpibooru.org/*
 // @match       https://*.trixiebooru.org/*
 // @match       https://*.twibooru.org/*
-// @require     https://raw.githubusercontent.com/soufianesakhi/node-creation-observer-js/master/release/node-creation-observer-1.2.js
+// @require     https://raw.githubusercontent.com/soufianesakhi/node-creation-observer-js/master/release/node-creation-observer-latest.js
 // @noframes
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -655,7 +656,7 @@
         postLimiter.initTicker(ticker(postButton, 'innerText'));
         postLimiter.queueTask(() => {
           abort = false;
-          postButton.disabled = false;
+          postButton.value = postButton.dataset.disableWith;
           form.submit();
         });
         window.addEventListener(

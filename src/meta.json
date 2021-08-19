@@ -17,7 +17,7 @@
         "GM_removeValueChangeListener"
     ],
     "require": [
-        "https://raw.githubusercontent.com/soufianesakhi/node-creation-observer-js/master/release/node-creation-observer-1.2.js"
+        "https://raw.githubusercontent.com/soufianesakhi/node-creation-observer-js/master/release/node-creation-observer-latest.js"
     ],
     "noframes": true
 }
