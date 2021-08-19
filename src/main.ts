@@ -161,7 +161,7 @@ function initForumPostLimit(): void {
 
     postLimiter.queueTask(() => {
       abort = false;
-      postButton.disabled = false;
+      postButton.value = postButton.dataset.disableWith;
       form.submit();
     });
 
