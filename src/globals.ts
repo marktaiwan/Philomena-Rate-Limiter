@@ -36,7 +36,7 @@ const boorus: Record<BooruKeys, Readonly<BooruData>> = {
     },
     forum: {
       cooldown: 30_000,
-      selector: 'form[action$="/posts"]',
+      selector: 'form[action$="/posts"] button[type="submit"]',
     },
   },
   ponybooru: {
@@ -54,7 +54,7 @@ const boorus: Record<BooruKeys, Readonly<BooruData>> = {
     },
     forum: {
       cooldown: 30_000,
-      selector: 'form[action$="/posts"]',
+      selector: 'form[action$="/posts"] button[type="submit"]',
     },
   },
   ponerpics: {
@@ -72,7 +72,7 @@ const boorus: Record<BooruKeys, Readonly<BooruData>> = {
     },
     forum: {
       cooldown: 30_000,
-      selector: 'form[action$="/posts"]',
+      selector: 'form[action$="/posts"] button[type="submit"]',
     },
   },
   twibooru: {

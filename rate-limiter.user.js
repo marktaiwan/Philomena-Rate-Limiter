@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Philomena Rate Limiter
-// @version     1.0.2
+// @version     1.0.3
 // @author      Marker
 // @license     MIT
 // @namespace   https://github.com/marktaiwan/
@@ -39,7 +39,7 @@
       },
       forum: {
         cooldown: 30000,
-        selector: 'form[action$="/posts"]',
+        selector: 'form[action$="/posts"] button[type="submit"]',
       },
     },
     ponybooru: {
@@ -57,7 +57,7 @@
       },
       forum: {
         cooldown: 30000,
-        selector: 'form[action$="/posts"]',
+        selector: 'form[action$="/posts"] button[type="submit"]',
       },
     },
     ponerpics: {
@@ -75,7 +75,7 @@
       },
       forum: {
         cooldown: 30000,
-        selector: 'form[action$="/posts"]',
+        selector: 'form[action$="/posts"] button[type="submit"]',
       },
     },
     twibooru: {
