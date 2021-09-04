@@ -35,7 +35,7 @@ const philomenaDefaults: BooruData = {
   },
   forum: {
     cooldown: 30_000,
-    selector: 'form[action$="/posts"] button[type="submit"]',
+    selector: 'form[action$="/posts"][method="post"] button[type="submit"]',
   },
 };
 
