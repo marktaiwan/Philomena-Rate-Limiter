@@ -5,8 +5,8 @@ type Uid = Brand<string, 'uid'>;
 
 type BooruData = {
   [type in InteractionType]?: {
-    cooldown: number,
-    selector: string,
+    readonly cooldown: number,
+    readonly selector: string,
   }
 }
 
