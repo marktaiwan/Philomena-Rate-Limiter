@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Philomena Rate Limiter
-// @version     1.0.3
+// @version     1.0.4
 // @author      Marker
 // @license     MIT
 // @namespace   https://github.com/marktaiwan/
@@ -23,61 +23,28 @@
   'use strict';
 
   const BUFFER = 500;
+  const philomenaDefaults = {
+    upload: {
+      cooldown: 10000,
+      selector: 'form[action="/images"] button[type="submit"]',
+    },
+    comment: {
+      cooldown: 30000,
+      selector: '#js-comment-form button[type="submit"]',
+    },
+    tag: {
+      cooldown: 5000,
+      selector: '#tags-form #edit_save_button',
+    },
+    forum: {
+      cooldown: 30000,
+      selector: 'form[action$="/posts"][method="post"] button[type="submit"]',
+    },
+  };
   const boorus = {
-    derpibooru: {
-      upload: {
-        cooldown: 10000,
-        selector: 'form[action="/images"] button[type="submit"]',
-      },
-      comment: {
-        cooldown: 30000,
-        selector: '#js-comment-form button[type="submit"]',
-      },
-      tag: {
-        cooldown: 5000,
-        selector: '#tags-form #edit_save_button',
-      },
-      forum: {
-        cooldown: 30000,
-        selector: 'form[action$="/posts"] button[type="submit"]',
-      },
-    },
-    ponybooru: {
-      upload: {
-        cooldown: 10000,
-        selector: 'form[action="/images"] button[type="submit"]',
-      },
-      comment: {
-        cooldown: 30000,
-        selector: '#js-comment-form button[type="submit"]',
-      },
-      tag: {
-        cooldown: 5000,
-        selector: '#tags-form #edit_save_button',
-      },
-      forum: {
-        cooldown: 30000,
-        selector: 'form[action$="/posts"] button[type="submit"]',
-      },
-    },
-    ponerpics: {
-      upload: {
-        cooldown: 10000,
-        selector: 'form[action="/images"] button[type="submit"]',
-      },
-      comment: {
-        cooldown: 30000,
-        selector: '#js-comment-form button[type="submit"]',
-      },
-      tag: {
-        cooldown: 5000,
-        selector: '#tags-form #edit_save_button',
-      },
-      forum: {
-        cooldown: 30000,
-        selector: 'form[action$="/posts"] button[type="submit"]',
-      },
-    },
+    derpibooru: philomenaDefaults,
+    ponybooru: philomenaDefaults,
+    ponerpics: philomenaDefaults,
     twibooru: {
       upload: {
         cooldown: 10000,
