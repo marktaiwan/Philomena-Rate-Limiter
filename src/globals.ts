@@ -20,61 +20,29 @@ type BooruKeys = [
 const SCRIPT_ID = 'rate-limiter';
 const BUFFER = 500;
 
+const philomenaDefaults: BooruData = {
+  upload: {
+    cooldown: 10_000,
+    selector: 'form[action="/images"] button[type="submit"]',
+  },
+  comment: {
+    cooldown: 30_000,
+    selector: '#js-comment-form button[type="submit"]',
+  },
+  tag: {
+    cooldown: 5000,
+    selector: '#tags-form #edit_save_button',
+  },
+  forum: {
+    cooldown: 30_000,
+    selector: 'form[action$="/posts"] button[type="submit"]',
+  },
+};
+
 const boorus: Record<BooruKeys, Readonly<BooruData>> = {
-  derpibooru: {
-    upload: {
-      cooldown: 10_000,
-      selector: 'form[action="/images"] button[type="submit"]',
-    },
-    comment: {
-      cooldown: 30_000,
-      selector: '#js-comment-form button[type="submit"]',
-    },
-    tag: {
-      cooldown: 5000,
-      selector: '#tags-form #edit_save_button',
-    },
-    forum: {
-      cooldown: 30_000,
-      selector: 'form[action$="/posts"] button[type="submit"]',
-    },
-  },
-  ponybooru: {
-    upload: {
-      cooldown: 10_000,
-      selector: 'form[action="/images"] button[type="submit"]',
-    },
-    comment: {
-      cooldown: 30_000,
-      selector: '#js-comment-form button[type="submit"]',
-    },
-    tag: {
-      cooldown: 5000,
-      selector: '#tags-form #edit_save_button',
-    },
-    forum: {
-      cooldown: 30_000,
-      selector: 'form[action$="/posts"] button[type="submit"]',
-    },
-  },
-  ponerpics: {
-    upload: {
-      cooldown: 10_000,
-      selector: 'form[action="/images"] button[type="submit"]',
-    },
-    comment: {
-      cooldown: 30_000,
-      selector: '#js-comment-form button[type="submit"]',
-    },
-    tag: {
-      cooldown: 5000,
-      selector: '#tags-form #edit_save_button',
-    },
-    forum: {
-      cooldown: 30_000,
-      selector: 'form[action$="/posts"] button[type="submit"]',
-    },
-  },
+  derpibooru: philomenaDefaults,
+  ponybooru: philomenaDefaults,
+  ponerpics: philomenaDefaults,
   twibooru: {
     upload: {
       cooldown: 10_000,
