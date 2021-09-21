@@ -40,7 +40,21 @@ const philomenaDefaults: BooruData = {
 };
 
 const boorus: Record<BooruKeys, Readonly<BooruData>> = {
-  derpibooru: philomenaDefaults,
+  derpibooru: {
+    ...philomenaDefaults,
+    upload: {
+      cooldown: 5000,
+      selector: philomenaDefaults.upload.selector,
+    },
+    comment: {
+      cooldown: 15_000,
+      selector: philomenaDefaults.comment.selector,
+    },
+    forum: {
+      cooldown: 15_000,
+      selector: philomenaDefaults.forum.selector,
+    },
+  },
   ponybooru: philomenaDefaults,
   ponerpics: philomenaDefaults,
   twibooru: {

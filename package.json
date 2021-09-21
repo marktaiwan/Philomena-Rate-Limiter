@@ -1,7 +1,7 @@
 {
     "displayName": "Philomena Rate Limiter",
     "name": "rate-limiter",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "private": true,
     "author": "Marker",
     "license": "MIT",

@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Philomena Rate Limiter
-// @version     1.0.4
+// @version     1.0.5
 // @author      Marker
 // @license     MIT
 // @namespace   https://github.com/marktaiwan/
@@ -42,7 +42,21 @@
     },
   };
   const boorus = {
-    derpibooru: philomenaDefaults,
+    derpibooru: {
+      ...philomenaDefaults,
+      upload: {
+        cooldown: 5000,
+        selector: philomenaDefaults.upload.selector,
+      },
+      comment: {
+        cooldown: 15000,
+        selector: philomenaDefaults.comment.selector,
+      },
+      forum: {
+        cooldown: 15000,
+        selector: philomenaDefaults.forum.selector,
+      },
+    },
     ponybooru: philomenaDefaults,
     ponerpics: philomenaDefaults,
     twibooru: {
