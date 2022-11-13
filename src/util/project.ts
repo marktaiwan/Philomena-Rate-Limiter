@@ -3,7 +3,7 @@ import {$} from './common';
 
 function generateUid(): Uid {
   // ehhh... good enough
-  return Math.random().toString(36).substr(2, 9) as Uid;
+  return Math.random().toString(36).slice(2, 11) as Uid;
 }
 
 function getDatastore(): Record<string, unknown> {
