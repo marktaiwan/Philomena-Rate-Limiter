@@ -6,6 +6,7 @@
     "author": "Marker",
     "license": "MIT",
     "homepage": "",
+    "type":"module",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "npx rollup --config rollup.config.js",
