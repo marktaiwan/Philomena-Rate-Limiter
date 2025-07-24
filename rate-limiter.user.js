@@ -19,6 +19,7 @@
 // @grant       GM_addValueChangeListener
 // @grant       GM_removeValueChangeListener
 // ==/UserScript==
+
 (function () {
   'use strict';
 
@@ -180,7 +181,7 @@
       this.listenerHandle ??
         (this.listenerHandle = GM_addValueChangeListener(
           'message',
-          this.valueChangeListener.bind(this)
+          this.valueChangeListener.bind(this),
         ));
     }
     /**
@@ -433,7 +434,7 @@
           new Promise(resolve => {
             this.messagePromiseResolver[uid] = resolve;
             window.setTimeout(() => resolve([uid, false]), TIMEOUT);
-          })
+          }),
         );
         this.message(uid, Signal.checkAlive);
       }
@@ -499,10 +500,10 @@
             if (uploadLimiter.state == TaskState.inactive) return;
             uploadLimiter.terminateTask(abort);
           },
-          {passive: true}
+          {passive: true},
         );
       },
-      {capture: true}
+      {capture: true},
     );
   }
   function initCommentRateLimit() {
@@ -534,7 +535,7 @@
               commentLimiter.terminateTask();
               commentButton.dataset.ratelimited = '0';
             },
-            {once: true, passive: true}
+            {once: true, passive: true},
           );
         });
         window.addEventListener(
@@ -544,10 +545,10 @@
             commentLimiter.terminateTask(true);
             commentButton.dataset.ratelimited = '0';
           },
-          {passive: true}
+          {passive: true},
         );
       },
-      {capture: true}
+      {capture: true},
     );
   }
   function initTagRateLimit() {
@@ -584,11 +585,11 @@
                 tagLimiter.terminateTask();
                 tagEditButton.dataset.ratelimited = '0';
               },
-              {once: true, passive: true}
+              {once: true, passive: true},
             );
           });
         },
-        {capture: true}
+        {capture: true},
       );
       cancelButton.addEventListener(
         'click',
@@ -603,7 +604,7 @@
           reset(tagEditButton);
           tagEditButton.dataset.ratelimited = '0';
         },
-        {capture: true}
+        {capture: true},
       );
       window.addEventListener(
         'unload',
@@ -614,7 +615,7 @@
           reset(tagEditButton);
           tagEditButton.dataset.ratelimited = '0';
         },
-        {passive: true}
+        {passive: true},
       );
     });
   }
@@ -647,10 +648,10 @@
             postLimiter.terminateTask(abort);
             postButton.dataset.ratelimited = '0';
           },
-          {passive: true}
+          {passive: true},
         );
       },
-      {capture: true}
+      {capture: true},
     );
   }
   function ticker(button, prop) {

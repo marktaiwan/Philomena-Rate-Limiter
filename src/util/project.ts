@@ -22,12 +22,7 @@ function getDatastore(): Record<string, unknown> {
   return store;
 }
 
-async function sleep(duration: number): Promise<void> {
-  return new Promise(resolve => window.setTimeout(resolve, duration));
-}
-
 export {
   generateUid,
   getDatastore,
-  sleep,
 };

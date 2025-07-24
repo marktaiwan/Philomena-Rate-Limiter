@@ -38,8 +38,8 @@ function getBooruParam<T extends InteractionType>(key: T): BooruData[T] {
 /**
  * Set value to key/value storeage scoped to the current site.
  */
-function setVal<K extends keyof StorageKeyValMap>(key: K, val: StorageKeyValMap[K]): void
-function setVal(key: string, val: unknown): void
+function setVal<K extends keyof StorageKeyValMap>(key: K, val: StorageKeyValMap[K]): void;
+function setVal(key: string, val: unknown): void;
 function setVal(key: string, val: unknown): void {
   const store = getStore();
   store[key] = val;
@@ -49,8 +49,8 @@ function setVal(key: string, val: unknown): void {
 /**
  * Retrieve value from key/value storeage scoped to the current site.
  */
-function getVal<K extends keyof StorageKeyValMap>(key: K, defaultValue: StorageKeyValMap[K]): StorageKeyValMap[K]
-function getVal<T>(key: string, defaultValue: T): T
+function getVal<K extends keyof StorageKeyValMap>(key: K, defaultValue: StorageKeyValMap[K]): StorageKeyValMap[K];
+function getVal<T>(key: string, defaultValue: T): T;
 function getVal(key: string, defaultValue: unknown): unknown {
   return getStore()[key] ?? defaultValue;
 }

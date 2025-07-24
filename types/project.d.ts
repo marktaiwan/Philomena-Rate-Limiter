@@ -8,8 +8,8 @@ interface StorageKeyValMap {
     InteractionType,
     Record<string, number>
   >;
-  queue: Record<InteractionType, Array<QueuedTask>>;
-  activeInstances: Record<InteractionType, Array<Uid>>;
+  queue: Record<InteractionType, QueuedTask[]>;
+  activeInstances: Record<InteractionType, Uid[]>;
   lastInteraction: {
     [userId: number]: {
       [type in InteractionType]?: number
@@ -17,7 +17,7 @@ interface StorageKeyValMap {
   };
 }
 
-type Brand<K, T> = K & {__brand: T}
+type Brand<K, T> = K & {__brand: T};
 
 export type {
   StorageKeyValMap,

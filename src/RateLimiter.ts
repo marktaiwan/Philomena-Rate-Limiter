@@ -27,7 +27,7 @@ type MessageObject = {
   user: number | null,
   type: InteractionType,
   value: Signal,
-}
+};
 
 
 /** Overview:
@@ -47,7 +47,7 @@ class RateLimiter {
   readonly site: BooruKeys;
   readonly user: number = (getDatastore().userIsSignedIn) ? getDatastore().userId as number : null;
   readonly type: InteractionType;
-  readonly cooldown:number;
+  readonly cooldown: number;
   readonly MessageController: MessageController;
   taskETA: number;
   callbackHandle: number;
@@ -58,7 +58,7 @@ class RateLimiter {
     [id: string]: (tuple: [uid: Uid, val: boolean]) => void,
   } = {};
 
-  constructor(type:InteractionType) {
+  constructor(type: InteractionType) {
     this.site = currentBooru();
     this.user = getDatastore().userIsSignedIn as boolean ? getDatastore().userId as number : null;
     this.type = type;
@@ -70,15 +70,15 @@ class RateLimiter {
     );
   }
 
-  getSharedQueue(): Promise<Array<QueuedTask>> {
-    return new Promise<Array<QueuedTask>>(resolve => {
+  getSharedQueue(): Promise<QueuedTask[]> {
+    return new Promise<QueuedTask[]>(resolve => {
       window.setTimeout(() => {
         const queue = getVal('queue', {})[this.type] ?? [];
         resolve(queue);
       });
     });
   }
-  setSharedQueue(queue: Array<QueuedTask>): Promise<void> {
+  setSharedQueue(queue: QueuedTask[]): Promise<void> {
     return new Promise(resolve => {
       window.setTimeout(() => {
         const collection = getVal('queue', {});
@@ -90,10 +90,10 @@ class RateLimiter {
     });
   }
 
-  getSharedQueueSynchronous(): Array<QueuedTask> {
+  getSharedQueueSynchronous(): QueuedTask[] {
     return getVal('queue', {})[this.type] ?? [];
   }
-  setSharedQueueSynchronous(queue: Array<QueuedTask>): void {
+  setSharedQueueSynchronous(queue: QueuedTask[]): void {
     const collection = getVal('queue', {});
     collection[this.type] = queue;
     setVal('queue', collection);
@@ -163,7 +163,7 @@ class RateLimiter {
       }
     });
 
-    this.MessageController.add(Signal.checkAlive, (message) => {
+    this.MessageController.add(Signal.checkAlive, message => {
       window.setTimeout(() => this.signalAlive(message.from));
     });
 
@@ -213,10 +213,11 @@ class RateLimiter {
    * Executes the callback at regular intervals.
    * Intended for updating page UI to show countdown etc.
    */
-  initTicker(callback: (
+  initTicker(
+    callback: (
       taskState: TaskState,
       queuePosition: number,
-      timeRemaining: number
+      timeRemaining: number,
     ) => void
   ): void {
     this.tickerHandle = window.setInterval(async () => {
@@ -278,7 +279,7 @@ class RateLimiter {
       handlerIds.push(id);
     }
 
-    const promises: Promise<[Uid, boolean]>[] = [];
+    const promises: Array<Promise<[Uid, boolean]>> = [];
     for (const {uid} of workingQueue) {
       promises.push(
         new Promise<[Uid, boolean]>(resolve => {
@@ -339,4 +340,3 @@ export {
   RateLimiter,
   TaskState,
 };
-

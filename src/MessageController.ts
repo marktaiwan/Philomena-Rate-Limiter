@@ -24,7 +24,7 @@ type MessageObject = {
   user: number | null,
   type: InteractionType,
   value: Signal,
-}
+};
 
 type callbackHandle = number;
 declare function GM_setValue<K extends keyof StorageKeyValMap>(name: K, value: StorageKeyValMap[K]): void;
@@ -38,7 +38,7 @@ class MessageController {
   readonly type: InteractionType;
   taskId: Uid;
   id = 0;
-  listeners: Array<EventListeners> = [];
+  listeners: EventListeners[] = [];
   listenerHandle: number | string = null;
 
   constructor(site: BooruKeys, user: number, type: InteractionType) {

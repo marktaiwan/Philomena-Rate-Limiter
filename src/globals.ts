@@ -8,7 +8,7 @@ type BooruData = {
     readonly cooldown: number,
     readonly selector: string,
   }
-}
+};
 
 type BooruKeys = [
   'derpibooru',
