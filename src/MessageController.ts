@@ -34,14 +34,23 @@ declare function GM_setValue<K extends keyof StorageKeyValMap>(name: K, value: S
  */
 class MessageController {
   readonly site: BooruKeys;
-  readonly user: number;
+  readonly user: number | null;
   readonly type: InteractionType;
-  taskId: Uid;
+
+  private _taskId?: Uid;
+  private get taskId(): Uid {
+    if (!this._taskId) throw new Error('taskId is uninitialized in MessageController.');
+    return this._taskId;
+  }
+  private set taskId(id: Uid) {
+    this._taskId = id;
+  }
+
   id = 0;
   listeners: EventListeners[] = [];
-  listenerHandle: number | string = null;
+  listenerHandle: number | string | null = null;
 
-  constructor(site: BooruKeys, user: number, type: InteractionType) {
+  constructor(site: BooruKeys, user: number | null, type: InteractionType) {
     this.site = site;
     this.user = user;
     this.type = type;

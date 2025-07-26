@@ -43,26 +43,47 @@ type MessageObject = {
  */
 class RateLimiter {
   state = TaskState.inactive;
-  taskId: Uid;
+  private _taskId: Uid | null = null;
   readonly site: BooruKeys;
-  readonly user: number = (getDatastore().userIsSignedIn) ? getDatastore().userId as number : null;
+  readonly user: number;
   readonly type: InteractionType;
   readonly cooldown: number;
   readonly MessageController: MessageController;
-  taskETA: number;
-  callbackHandle: number;
-  tickerHandle: number = null;
-  taskCallback: () => void;
-  pollerHandle: number = null;
+  private _taskETA: number | null = null;
+  callbackHandle: number | null = null;
+  tickerHandle: number | null = null;
+  taskCallback: (() => void) | null = null;
+  pollerHandle: number | null = null;
   messagePromiseResolver: {
     [id: string]: (tuple: [uid: Uid, val: boolean]) => void,
   } = {};
 
+  get taskId(): Uid {
+    if (this._taskId === null) {
+      throw new Error('Attempted to read RateLimiter.taskId with value set to null');
+    }
+    return this._taskId;
+  }
+  set taskId(id: Uid | null) {
+    this._taskId = id;
+  }
+
+  get taskETA(): number {
+    if (this._taskETA === null) {
+      throw new Error('Attempted to read RateLimiter.taskETA with value set to null');
+    }
+    return this._taskETA;
+  }
+  set taskETA(time: number | null) {
+    this._taskETA = time;
+  }
+
   constructor(type: InteractionType) {
     this.site = currentBooru();
-    this.user = getDatastore().userIsSignedIn as boolean ? getDatastore().userId as number : null;
+    // We use NaN to represent user that is not signed in.
+    this.user = getDatastore<boolean>().userIsSignedIn ? getDatastore<number>().userId : NaN;
     this.type = type;
-    this.cooldown = getBooruParam(type).cooldown;
+    this.cooldown = getBooruParam(type)?.cooldown ?? 0;
     this.MessageController = new MessageController(
       this.site,
       this.user,
@@ -158,7 +179,7 @@ class RateLimiter {
         this.callbackHandle = window.setTimeout(() => {
           this.state = TaskState.active;
           this.clearTicker();
-          this.taskCallback();
+          this.taskCallback?.();
         }, waitTime);
       }
     });
@@ -188,7 +209,7 @@ class RateLimiter {
       this.lastRan = Date.now();
     } else {
       if (this.state == TaskState.active) return;
-      window.clearTimeout(this.callbackHandle);
+      window.clearTimeout(this.callbackHandle ?? undefined);
       this.clearQueuePolling();
     }
 

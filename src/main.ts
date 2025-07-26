@@ -15,7 +15,7 @@ function initUploadRateLimit(): void {
   const form = imagePostButton.closest('form');
   imagePostButton.dataset.ratelimited = '0';
 
-  form.addEventListener('submit', e => {
+  form?.addEventListener('submit', e => {
     e.preventDefault();
     const ratelimited = (imagePostButton.dataset.ratelimited == '1');
     if (ratelimited || !form.reportValidity()) return;
@@ -28,7 +28,7 @@ function initUploadRateLimit(): void {
 
     uploadLimiter.queueTask(() => {
       abort = false;
-      imagePostButton[prop] = imagePostButton.dataset.disableWith;
+      imagePostButton[prop] = imagePostButton.dataset.disableWith ?? imagePostButton[prop];
       form.submit();
     });
 
@@ -44,7 +44,7 @@ function initCommentRateLimit(): void {
   const commentButton = (selector) ? $<HTMLButtonElement>(selector) : null;
   if (!commentButton) return;
   const commentLimiter = new RateLimiter('comment');
-  const form = commentButton.closest('form');
+  const form = commentButton.closest('form')!;
   const origText = commentButton.innerText;
   commentButton.dataset.ratelimited = '0';
 
@@ -87,13 +87,14 @@ function initTagRateLimit(): void {
     const tagLimiter = new RateLimiter('tag');
     const form = tagEditButton.closest('form');
     const origText = tagEditButton[prop];
+    if (!cancelButton || !form) return;
+
     tagEditButton.dataset.ratelimited = '0';
 
     function reset(button: typeof tagEditButton): void {
       button[prop] = origText;
       button.disabled = false;
     }
-
 
     tagEditButton.addEventListener('click', e => {
       const ratelimited = (tagEditButton.dataset.ratelimited == '1');
@@ -145,7 +146,7 @@ function initForumPostLimit(): void {
   if (!postButton) return;
 
   const postLimiter = new RateLimiter('forum');
-  const form = postButton.closest('form');
+  const form = postButton.closest('form')!;
   postButton.dataset.ratelimited = '0';
 
   form.addEventListener('submit', e => {
@@ -161,7 +162,7 @@ function initForumPostLimit(): void {
 
     postLimiter.queueTask(() => {
       abort = false;
-      postButton.value = postButton.dataset.disableWith;
+      postButton.value = postButton.dataset.disableWith ?? postButton.value;
       form.submit();
     });
 
@@ -173,12 +174,18 @@ function initForumPostLimit(): void {
   }, {capture: true});
 }
 
-function ticker(button: HTMLElement, prop: string) {
+function ticker<
+  T extends HTMLElement,
+  K extends keyof T
+>(
+  button: T,
+  prop: T[K] extends string ? K : never
+) {
   return (state: TaskState, index: number, secondsRemaining: number) => {
-    let message = null;
+    let message = '';
     if (state == TaskState.queued) message = `${index} pending...`;
     if (state == TaskState.pending) message = `${secondsRemaining}s`;
-    if (message && button[prop] !== message) button[prop] = message;
+    if (message && button[prop] !== message) (button[prop] as string) = message;
   };
 }
 

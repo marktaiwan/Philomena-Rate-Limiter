@@ -8,7 +8,7 @@ interface StorageKeyValMap {
     InteractionType,
     Record<string, number>
   >;
-  queue: Record<InteractionType, QueuedTask[]>;
+  queue: Partial<Record<InteractionType, QueuedTask[]>>;
   activeInstances: Record<InteractionType, Uid[]>;
   lastInteraction: {
     [userId: number]: {
@@ -17,9 +17,13 @@ interface StorageKeyValMap {
   };
 }
 
+type StorageTypeFallback<K extends string, V> = K extends keyof StorageKeyValMap ? StorageKeyValMap[K] : V;
+
+
 type Brand<K, T> = K & {__brand: T};
 
 export type {
   StorageKeyValMap,
+  StorageTypeFallback,
   Brand,
 };

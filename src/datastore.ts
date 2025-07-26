@@ -1,4 +1,4 @@
-import type {StorageKeyValMap} from '../types/project';
+import type {StorageTypeFallback} from '../types/project';
 import type {BooruData, BooruKeys, InteractionType} from './globals';
 import {boorus} from './globals';
 
@@ -27,7 +27,7 @@ function currentBooru(): BooruKeys {
   for (const [booru, re] of Object.entries(booruHostnames) as Array<[BooruKeys, RegExp]>) {
     if (re.test(hostname)) return booru;
   }
-  return null;
+  throw new Error(`Could not match booru to host: ${hostname}`);
 }
 
 function getBooruParam<T extends InteractionType>(key: T): BooruData[T] {
@@ -38,8 +38,10 @@ function getBooruParam<T extends InteractionType>(key: T): BooruData[T] {
 /**
  * Set value to key/value storeage scoped to the current site.
  */
-function setVal<K extends keyof StorageKeyValMap>(key: K, val: StorageKeyValMap[K]): void;
-function setVal(key: string, val: unknown): void;
+function setVal<K extends string, V>(
+  key: K,
+  val: StorageTypeFallback<K, V>
+): void;
 function setVal(key: string, val: unknown): void {
   const store = getStore();
   store[key] = val;
@@ -49,8 +51,10 @@ function setVal(key: string, val: unknown): void {
 /**
  * Retrieve value from key/value storeage scoped to the current site.
  */
-function getVal<K extends keyof StorageKeyValMap>(key: K, defaultValue: StorageKeyValMap[K]): StorageKeyValMap[K];
-function getVal<T>(key: string, defaultValue: T): T;
+function getVal<K extends string, V>(
+  key: K,
+  defaultValue: StorageTypeFallback<K, unknown>
+): StorageTypeFallback<K, V>;
 function getVal(key: string, defaultValue: unknown): unknown {
   return getStore()[key] ?? defaultValue;
 }

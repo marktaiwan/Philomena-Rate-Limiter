@@ -20,7 +20,7 @@ type BooruKeys = [
 const SCRIPT_ID = 'rate-limiter';
 const BUFFER = 500;
 
-const philomenaDefaults: BooruData = {
+const philomenaDefaults: Required<BooruData> = {
   upload: {
     cooldown: 10_000,
     selector: 'form[action="/images"] button[type="submit"]',
